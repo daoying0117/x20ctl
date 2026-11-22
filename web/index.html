@@ -1,0 +1,31 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="通过 KeyLinker 蓝牙协议配置 EasySMX X20 与 X20 Pro 手柄。">
+  <meta name="color-scheme" content="dark">
+  <title>X20CTL · 网页手柄驱动</title>
+  <link rel="icon" href="../assets/x20ctl.png">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip" href="#main">跳转到主内容</a>
+  <div class="shell">
+    <aside class="rail">
+      <a class="brand" href="#overview" aria-label="X20CTL 设备概览">
+        <img src="../assets/x20ctl.png" width="42" height="42" alt="">
+        <span><strong>X20CTL<span class="brand-dot">.</span></strong><small>手柄控制台</small></span>
+      </a>
+      <nav id="nav" aria-label="配置页面"></nav>
+      <label class="mobile-nav"><span class="visually-hidden">切换页面</span><select id="page-select"></select></label>
+    </aside>
+    <div class="workspace">
+      <div class="notice" id="notice" hidden><span id="notice-text" role="status" aria-live="polite"></span><button type="button" id="dismiss-notice" aria-label="关闭提示">×</button></div>
+      <main id="main" tabindex="-1"></main>
+    </div>
+  </div>
+  <script type="module" src="./app.mjs"></script>
+</body>
+</html>
