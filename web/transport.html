@@ -1,0 +1,51 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>X20CTL · USB 与接收器实验</title>
+  <link rel="icon" href="../assets/x20ctl.png">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="topbar"><a class="text-link" href="./index.html#diagnostics">返回连接诊断</a><a class="text-link" href="./index.html#license">开源许可</a></header>
+  <div class="notice" id="notice" role="status" hidden></div>
+  <main>
+    <div class="heading">
+      <h1>USB 与接收器实验</h1>
+      <p>比较有线和 2.4 GHz 接收器在浏览器中公开的设备接口。此页只读取描述信息。</p>
+    </div>
+    <section class="panel edit-panel">
+      <div class="editor-bar"><h2>接口探测</h2><a class="text-link" href="./index.html#tester">测试游戏输入</a></div>
+      <div class="form-grid">
+        <label class="field"><span>当前实际连接</span><select id="connection"><option value="cable">USB 有线</option><option value="receiver">2.4 GHz 接收器</option></select></label>
+        <div class="field"><span>浏览器接口</span><div class="action-group" id="probe-controls">
+          <button class="btn primary" data-probe="hid">检查 HID</button>
+          <button class="btn" data-probe="usb">检查 USB</button>
+          <button class="btn" data-probe="serial">检查小屏串口</button>
+        </div></div>
+      </div>
+      <p class="help" id="connection-help"></p>
+      <p class="help" id="capabilities"></p>
+    </section>
+    <section class="panel edit-panel transport-result">
+      <div class="editor-bar"><h2>探测报告</h2><button class="btn" id="copy" disabled>复制报告</button></div>
+      <div id="summary" aria-live="polite"><p class="muted">请选择对应接口进行探测。</p></div>
+      <details id="raw" hidden><summary>查看描述符明细</summary><pre class="log" id="report"></pre></details>
+    </section>
+    <section class="panel edit-panel transport-result">
+      <h2>已知连接方式</h2>
+      <dl class="device-data">
+        <div><dt>KeyLinker 配置</dt><dd>原项目通过 BLE 实测</dd></div>
+        <div><dt>USB／2.4 GHz 游戏输入</dt><dd>浏览器可通过 Gamepad API 读取</dd></div>
+        <div><dt>X20 Pro 接收器 413D:2131</dt><dd>曾见 FF70、FF10 厂商 HID 集合，板载协议待确认</dd></div>
+        <div><dt>X20 Pro USB 小屏</dt><dd>原版通过独立串口上传素材</dd></div>
+      </dl>
+      <p class="help">设备 ID 和厂商 HID 集合属于接口线索。确认板载配置协议还需要同款设备的设置往返记录。浏览器可能因驱动或权限而隐藏部分接口。</p>
+    </section>
+  </main>
+  <script type="module" src="./transport-page.mjs"></script>
+</body>
+</html>

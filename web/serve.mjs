@@ -7,7 +7,7 @@ const port = Number(process.argv[2] ?? 8765);
 if (!Number.isInteger(port) || port < 1 || port > 65535) throw new RangeError('端口必须在 1 到 65535 之间');
 const types = {html:'text/html; charset=utf-8',css:'text/css; charset=utf-8',mjs:'application/javascript; charset=utf-8',png:'image/png'};
 const assets = /^\/src\/assets\/controllers\/(x20|x20_pro)\/native\/(front|rear)-full\.png$/;
-const pages = /^\/web\/(index\.html|style\.css|app\.mjs|device\.mjs|protocol\.mjs|demo\.mjs)$/;
+const pages = /^\/web\/(index\.html|transport\.html|style\.css|app\.mjs|device\.mjs|protocol\.mjs|demo\.mjs|usb-probe\.mjs|transport-page\.mjs)$/;
 const input = process.platform === 'win32' ? createInputBridge() : null;
 const localHosts = new Set([`localhost:${port}`, `127.0.0.1:${port}`]);
 

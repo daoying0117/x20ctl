@@ -41,4 +41,20 @@ node --test web/protocol.test.mjs web/input-bridge.test.mjs
 
 测试覆盖上游 X20 实测报文、CRC、应答序号关联、两款手柄的分包和宏格式、X20 Pro 1.31 模式 2 的常规写入、振动试写与恢复，以及断连或无有效应答时的处理。
 
+## USB 与接收器实验
+
+在实验分支运行 `node web/serve.mjs 8766`，打开 [接口探测页](http://localhost:8766/web/transport.html)。依次只接数据线和只接接收器，每次选中对应连接方式，再检查 HID 和 USB。报告可复制，按连接方式分别保存本次页面会话中的最新结果。WebHID 显示报告 ID 和厂商用途页，WebUSB 显示接口类别及端点。探测只调用浏览器选择器并读取描述符，未打开端点、串口或发送设备命令。
+
+| 接口 | 已知用途与证据 |
+| --- | --- |
+| X20 有线和 2.4 GHz | 原项目实测了几种模式的游戏 HID 接口，当时未发现板载配置通道。`045E:028E` 和 `0079:181C` 是共享标识，无法单靠 ID 区分型号或连接方式。 |
+| X20 Pro 接收器 `413D:2131` | 原项目在零售版记录了 `FF70` 和 `FF10` 厂商 HID 集合。该 ID 也用于 Dune 8K，集合存在只能作为研究线索。已知原版工作流为接收器传输游戏输入，单独的 BLE 连接负责同步设置。 |
+| X20 Pro USB 串口 `EEEF:268A` | 原版用于上传 160×80 小屏素材。按住 M 键插入数据线后，可用「检查小屏串口」查看浏览器是否能选择它。 |
+
+WebHID 或 WebUSB 没有列出设备时，可以在同一连接方式下用原项目的 Windows 只读扫描器 `python tools/hid_scan.py --vid 413D` 核对接收器的 HID 集合。对有线的常见 XInput 接口可使用 `--vid 045E`。接口探测还需要在目标手柄上各跑一次。验证非蓝牙板载配置还需要明确的设备协议和可复现的读回。 [上游传输测试](../docs/01-protocol.md#4g-transports-tested-so-far) · [上游接收器记录](../desktop-dotnet/X20Ctl.Product/Scanner/ScanFlow.cs) · [上游小屏串口](../desktop-dotnet/X20Ctl.Product/ScreenSerialTransport.cs)
+
+```powershell
+node --test web/protocol.test.mjs web/usb-probe.test.mjs
+```
+
 协议和手柄图片来自 X20CTL 源码快照 `9d64ed1c039964b3e805b9ffbb42d9762995c02e`。参考 [KeyLinker 协议](../docs/01-protocol.md)、[Python 客户端](../x20ctl/client.py) 与 [Windows X20 Pro 客户端](../desktop-dotnet/X20Ctl.Product/LightingBleClient.cs)。沿用项目的 [GPL-3.0-or-later](../LICENSE) 和[原作者声明](../NOTICE)。

@@ -1374,3 +1374,11 @@ select {
   }
 }
 
+.transport-result {
+  margin-top: 14px;
+}
+
+.transport-result details {
+  margin-top: 14px;
+}
+
