@@ -2,7 +2,9 @@
 
 这是 [Amjad AAYD 的 X20CTL](https://github.com/AmjadAAYD/x20ctl) 的网页改版，修改日期为 2026-11-22。网页版继续以 **GPL-3.0-or-later** 发布。
 
-从 [网页版使用说明](web/README.md) 启动中文手柄控制台。原项目版权 © 2026 Amjad AAYD。详见 [LICENSE](LICENSE)、[NOTICE](NOTICE) 和 [第三方许可证](THIRD_PARTY.md)。
+从 [网页版发布页](https://github.com/daoying0117/x20ctl/releases) 下载 Windows x64 便携 ZIP，全部解压后双击 `start-web.cmd`。源码目录也提供同一个启动入口。详细步骤见 [网页版使用说明](web/README.md)。
+
+原项目版权 © 2026 Amjad AAYD。详见 [LICENSE](LICENSE)、[NOTICE](NOTICE) 和 [第三方许可证](THIRD_PARTY.md)。
 
 ---
 
