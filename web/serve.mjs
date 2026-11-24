@@ -8,7 +8,7 @@ import {createInputBridge, unavailableInput} from './input-bridge.mjs';
 
 const types = {html:'text/html; charset=utf-8',css:'text/css; charset=utf-8',mjs:'application/javascript; charset=utf-8',png:'image/png'};
 const assets = /^\/src\/assets\/controllers\/(x20|x20_pro)\/native\/(front|rear)-full\.png$/;
-const pages = /^\/web\/(index\.html|style\.css|app\.mjs|device\.mjs|protocol\.mjs|demo\.mjs)$/;
+const pages = /^\/web\/(index\.html|style\.css|app\.mjs|device\.mjs|protocol\.mjs|demo\.mjs|transport\.html|transport-page\.mjs|usb-probe\.mjs|receiver-observation\.mjs)$/;
 export const consoleId = createHash('sha256').update(fileURLToPath(new URL('../', import.meta.url))).digest('hex');
 
 export function parsePort(value = 8765) {

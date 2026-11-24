@@ -351,7 +351,8 @@ function diagnostics() {
       session?.hasWritableSettings ? '设备开放的设置可试写并读回' : info ? '当前设备未开放可写设置' : '等待连接']];
   return `<section class="panel edit-panel"><div class="editor-bar"><h2>设备与浏览器</h2>${session ? '' : button('connect-all','扩大蓝牙搜索',{disabled:!!work})}</div>
     <dl class="device-data">${facts.map(([key,value]) => `<div><dt>${key}</dt><dd>${escape(value)}</dd></div>`).join('')}</dl>
-    <p class="help">搜不到手柄时，先退出手机上的 KeyLinker 或其他配置工具，再让手柄保持开机。扩大搜索会同时显示附近其他低功耗蓝牙设备。</p></section>
+    <p class="help">搜不到手柄时，先退出手机上的 KeyLinker 或其他配置工具，再让手柄保持开机。扩大搜索会同时显示附近其他低功耗蓝牙设备。</p>
+    <p class="help"><a class="text-link" href="./transport.html">USB 与接收器实验</a></p></section>
     <section class="panel edit-panel" style="margin-top:14px"><div class="editor-bar"><h2>KeyLinker 报文</h2>${button('copy-log','复制日志',{disabled:!logs.length})}</div>
     <pre class="log" id="log">${escape(logs.join('\n') || '暂无报文。连接手柄后可查看收发记录。')}</pre></section>`;
 }

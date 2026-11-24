@@ -54,6 +54,7 @@ $files = @(
     'web/index.html', 'web/style.css', 'web/app.mjs', 'web/demo.mjs', 'web/device.mjs',
     'web/protocol.mjs', 'web/start-web.cmd', 'web/launch.mjs', 'web/serve.mjs',
     'web/input-bridge.mjs', 'web/input_bridge.py',
+    'web/transport.html', 'web/transport-page.mjs', 'web/usb-probe.mjs', 'web/receiver-observation.mjs',
     'x20ctl/__init__.py', 'x20ctl/input.py', 'x20ctl/protocol.py',
     'assets/x20ctl.png',
     'src/assets/controllers/x20/native/front-full.png',

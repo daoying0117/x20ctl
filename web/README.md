@@ -45,6 +45,25 @@ node --test web/protocol.test.mjs web/input-bridge.test.mjs web/launch.test.mjs
 
 测试覆盖上游 X20 实测报文、CRC、应答序号关联、两款手柄的分包和宏格式、X20 Pro 1.31 模式 2 的常规写入、振动试写与恢复，以及断连或无有效应答时的处理。
 
+## 无蓝牙配置实验
+
+在 `experiment/no-bluetooth-settings` 分支的根目录运行 `node web/serve.mjs 8767`，在桌面版 Chrome 或 Edge 打开 [USB 与接收器实验](http://localhost:8767/web/transport.html)。使用「检查 HID」和「检查 USB」比较有线和接收器的设备接口。「监听 20 秒」可监听 X20 Pro 接收器的 FF10 或 FF70 厂商输入报告。监听期间可在手柄小屏调整振动并恢复原值。页面记录报告数量和有限的去重样本，并检查是否含有符合长度、CRC 和机型的完整 KeyLinker 身份回包。
+
+| X20 Pro 1.31，电脑蓝牙关闭 | Windows 实机结果 |
+| --- | --- |
+| 2.4 GHz 接收器，XInput | `413D:2131` 游戏输入可见。另有 `FF10:01` 厂商集合，声明 64 字节输入、64 字节输出、0 字节 Feature Report。本机这次没有看到上游记录的 FF70。 |
+| 接收器，调整并恢复振动 | 调整在手柄小屏完成，监听期间 FF10 未收到主动输入报告。随后以仅有读取权限的 Windows 句柄确认该接口可以挂起输入读取，空闲时没有报告。 |
+| USB 有线，XInput | `045E:028E`，通用游戏手柄 HID 集合，输入 15 字节，输出和 Feature Report 均为 0。 |
+| USB 有线，DInput | `0079:181C`，设备名为 EasySMX X20Pro。单个游戏手柄集合，输入 10 字节、输出 5 字节、Feature Report 为 0。 |
+
+以上观察尚未验证可用的 USB 或接收器设置请求。被动监听只能观察设备主动发送的报告。要验证 FF10 是否可按请求转发设置，下一步需要同型号的有效请求／应答记录或厂商协议，再在关闭蓝牙的情况下对照读回一项已知板载设置。实验页只进行设备选择、描述符检查和输入监听，目前板载配置使用已验证的 BLE 通道。
+
+浏览器未显示厂商集合时，可用 Windows 枚举命令 `python tools/hid_scan.py --vid 413D` 对照。上游另记录了 [X20 有线模式](../docs/01-protocol.md#4g-transports-tested-so-far)、[X20 Pro 接收器](../desktop-dotnet/X20Ctl.Product/Scanner/ScanFlow.cs) 以及 [独立小屏 USB 串口](../desktop-dotnet/X20Ctl.Product/ScreenSerialTransport.cs)。
+
+```powershell
+node --test web/usb-probe.test.mjs web/receiver-observation.test.mjs
+```
+
 ## 构建 Windows 便携包
 
 在项目根目录的 PowerShell 中运行以下命令。打包脚本下载并校验所需的官方运行时，输出 ZIP 和 SHA-256 校验文件到 `dist`。
